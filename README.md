@@ -36,10 +36,10 @@ I dati caricati dal web vengono ordinati e da ognuno di essi viene estratta una 
 ## screens
 
 Vi sono due screens: il PokedexScreen (la home) e il DetailPokemonScreen (dove visualizzare i dettagli del pokemon).
-- 
+
 - PokedexScreen: all'interno viene eseguita la logica per l'estrazione dei dati dal web o dalla memoria.
 Attraverso tre bool (search, favoritesOnly, gridMode) vengono scelti i dati da mostrare (se solo i preferiti, o se filtrarli attraverso una ricerca) e se visualizzarli in lista o in griglia.
--DetailPokemonScreen: all'interno vengono visualizzati i dati del pokemon e i dettagli quali stats e abilità.
+- DetailPokemonScreen: all'interno vengono visualizzati i dati del pokemon e i dettagli quali stats e abilità.
 
 
 
