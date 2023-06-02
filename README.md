@@ -8,12 +8,12 @@ E' possibile inoltre salvare in memoria locale i tuoi pokemon preferiti, visuali
 
 ## dependencies
 
--http: per richieste get per l'estrazione di dati dalla pokeapi;
--google_fonts: per l'uso del fontFamily "Comfortaa";
--flutter_riverpod: per l'uso in più schermi dei dati dei preferiti;
--firebase_core, cloud_firebase, firebase_storage: per l'uso del cloud database e il cloud storage;
--shared_prefences: per la conservazione in memoria dei dati sui preferiti;
--path_provider: per la creazione dei file delle immagini.
+- http: per richieste get per l'estrazione di dati dalla pokeapi;
+- google_fonts: per l'uso del fontFamily "Comfortaa";
+- flutter_riverpod: per l'uso in più schermi dei dati dei preferiti;
+- firebase_core, cloud_firebase, firebase_storage: per l'uso del cloud database e il cloud storage;
+- shared_prefences: per la conservazione in memoria dei dati sui preferiti;
+- path_provider: per la creazione dei file delle immagini.
 
 ## logica
 
