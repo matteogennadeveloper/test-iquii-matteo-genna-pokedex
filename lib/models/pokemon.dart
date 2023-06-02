@@ -56,10 +56,9 @@ class Pokemon {
             abilities.length,
             (index) => {
                   'name': abilities[index].name,
-                  'effect': abilities[index].descrizione
+                  'effect': abilities[index].effect
                 })
       },
     };
   }
-//final List<String> abilità;
 }

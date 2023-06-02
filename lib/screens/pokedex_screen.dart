@@ -17,7 +17,7 @@ import 'package:test_iquii/widgets/pokemon_overview_list.dart';
 import '../models/pokemon_stats.dart';
 import '../widgets/pokemon_overview_grid.dart';
 //numero pokemon da caricare
-const int pokemonNumberToLoad = 350;
+const int pokemonNumberToLoad = 151;
 //link dell'api
 const String apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 // link per l'immagine

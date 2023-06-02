@@ -28,7 +28,7 @@ class AbilityWidget extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(pokemon.abilities[index].descrizione,
+            Text(pokemon.abilities[index].effect,
                 style: Theme.of(context).textTheme.bodyMedium)
           ],
         ),
