@@ -11,7 +11,7 @@ Future<List<bool>> loadFavorites() async {
   List<bool> favoriteList = [];
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   bool valore;
-  for (int i = 1; i <= pokemonNumberToLoad; i++) {
+  for (int i = 1; i <= pokemonNumberToLoad+1; i++) {
     valore = sharedPreferences.getBool(i.toString()) ?? false;
     favoriteList.add(valore);
   }

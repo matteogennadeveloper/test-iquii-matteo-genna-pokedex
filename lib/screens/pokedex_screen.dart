@@ -105,7 +105,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
 
     Directory appDirectory = await getApplicationDocumentsDirectory();
 
-    for (int i = 1; databaseData.data()!.length > pokemonNumberToLoad ? i<=pokemonNumberToLoad : i <= databaseData.data()!.length; i++) {
+    for (int i = 1; databaseData.data()!.length > pokemonNumberToLoad ? i<=pokemonNumberToLoad+1 : i <= databaseData.data()!.length; i++) {
       //prima verifico l'esistenza del file dell'immagine sulla memoria e in caso negativo la carico da cloud_storage
       File file = File('${appDirectory.path}/.$i.png');
       if (connesso && !(await file.exists())) {
@@ -215,7 +215,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
   build(BuildContext context) {
     print(pokemonDisplayed.length);
     return Scaffold(
-        bottomNavigationBar: search
+        bottomNavigationBar: search || favoritesOnly
             ? null
             : BottomNavigationBar(
                 backgroundColor: Colors.red,
@@ -278,6 +278,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                 onPressed: () {
                   setState(() {
                     search = !search;
+                    if(favoritesOnly) favoritesOnly = false;
                   });
                 },
                 icon: Icon(
