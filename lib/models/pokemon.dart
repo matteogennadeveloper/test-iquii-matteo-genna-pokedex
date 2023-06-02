@@ -5,7 +5,6 @@ import 'package:test_iquii/models/pokemon_type.dart';
 import 'ability.dart';
 import 'pokemon_stats.dart';
 
-
 class Pokemon {
   String name;
   Image image;

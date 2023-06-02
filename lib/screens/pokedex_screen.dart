@@ -16,6 +16,7 @@ import 'package:test_iquii/widgets/pokemon_overview_list.dart';
 
 import '../models/pokemon_stats.dart';
 import '../widgets/pokemon_overview_grid.dart';
+
 //numero pokemon da caricare
 const int pokemonNumberToLoad = 151;
 //link dell'api
@@ -23,6 +24,7 @@ const String apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 // link per l'immagine
 const String urlImage =
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+
 //screen principale
 class PokedexScreen extends ConsumerStatefulWidget {
   @override
@@ -57,7 +59,8 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                 .where((element) =>
                     ref.watch(favoritesData)[element.pokedexNumber - 1])
                 .toList()
-            : loadedPokemon.sublist(pageRange[0] - 1, pageRange[1] - 1);
+            : loadedPokemon.sublist(pageRange[0] - 1,
+                pageRange[1] == pokemonNumberToLoad ? null : pageRange[1]);
   }
 
   String searchText = '';
@@ -67,6 +70,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
     caricaPokemon();
     super.initState();
   }
+
   //logica per il caricamento dei pokemon
   caricaPokemon() async {
     await ref.read(favoritesData.notifier).caricaLista();
@@ -100,7 +104,6 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
     Directory appDirectory = await getApplicationDocumentsDirectory();
 
     for (int i = 1; i <= databaseData.data()!.length; i++) {
-
       //prima verifico l'esistenza del file dell'immagine sulla memoria e in caso negativo la carico da cloud_storage
       File file = File('${appDirectory.path}/.$i.png');
       if (connesso && !(await file.exists())) {
@@ -195,7 +198,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
           setState(() {
             loadingProgress = i;
           });
-        }//se ci sono dati mancanti nel database e non c'è nessuna connessione faccio visualizzare un messaggio di errore
+        } //se ci sono dati mancanti nel database e non c'è nessuna connessione faccio visualizzare un messaggio di errore
       } else
         setState(() {
           errorMessage = 'Check your connection for first run';
@@ -212,18 +215,27 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
         bottomNavigationBar: search
             ? null
             : BottomNavigationBar(
+                backgroundColor: Colors.red,
                 selectedItemColor: Colors.yellow,
                 showUnselectedLabels: true,
                 unselectedItemColor: Colors.white,
                 currentIndex: ((pageRange[0] - 1) / 50).round(),
                 onTap: (index) {
                   setState(() {
-                    pageRange = [index * 50 + 1, index * 50 + 51];
+                    pageRange = [
+                      index * 50 + 1,
+                      (index * 50 + 51) > pokemonNumberToLoad
+                          ? pokemonNumberToLoad
+                          : (index * 50 + 51)
+                    ];
+                    print(pageRange);
                   });
                 },
-
                 items: List.generate(
-                    (pokemonNumberToLoad / 50).round(),
+                    //controlla se il double contiene un valore decimale
+                    (pokemonNumberToLoad / 50) % 1 == 0
+                        ? (pokemonNumberToLoad / 50).toInt()
+                        : (pokemonNumberToLoad / 50).toInt() + 1,
                     (index) => BottomNavigationBarItem(
                           backgroundColor: Colors.red,
                           icon: Icon(
@@ -299,17 +311,21 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                             ? GridView.builder(
                                 scrollDirection: Axis.vertical,
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2),
-                                padding: EdgeInsets.all(10),
-                                itemCount: pokemonDisplayed.length,
+                                padding: const EdgeInsets.all(10),
+                                itemCount: pageRange[1] == pageRange[0]
+                                    ? 1
+                                    : pokemonDisplayed.length,
                                 itemBuilder: (ctx, indice) {
                                   return GridPokemonOverview(
                                       pokemonDisplayed[indice]);
                                 })
                             : ListView.builder(
-                                padding: EdgeInsets.all(10),
-                                itemCount: pokemonDisplayed.length,
+                                padding: const EdgeInsets.all(10),
+                                itemCount: pageRange[1] == pageRange[0]
+                                    ? 1
+                                    : pokemonDisplayed.length,
                                 itemBuilder: (ctx, indice) {
                                   return PokemonOverview(
                                       pokemonDisplayed[indice]);
@@ -325,10 +341,10 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                       value: loadingProgress / pokemonNumberToLoad,
                       color: Theme.of(context).primaryColor,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       'on first load it takes about 1-2 minutes...',
                       style: TextStyle(color: Colors.red),
                     )
