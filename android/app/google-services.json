@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "292588197941",
+    "project_id": "pokedex-65af3",
+    "storage_bucket": "pokedex-65af3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292588197941:android:261f31205d8c02e918f97c",
+        "android_client_info": {
+          "package_name": "com.example.test_iquii"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ1w0aI_zwcohBjOEhvC4KFTKYsiPqXn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
