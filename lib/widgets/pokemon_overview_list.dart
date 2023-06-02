@@ -9,7 +9,7 @@ import '../models/pokemon.dart';
 class PokemonOverview extends ConsumerWidget {
   final Pokemon pokemon;
 
-  const PokemonOverview(this.pokemon);
+  const PokemonOverview(this.pokemon, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,12 +26,11 @@ class PokemonOverview extends ConsumerWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             height: MediaQuery.of(context).size.height * 0.2,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                gradient:
-                    LinearGradient(colors: pokemon.type.getColors())),
+                gradient: LinearGradient(colors: pokemon.type.getColors())),
             child: Center(
               child: ListTile(
                 trailing: Wrap(
@@ -113,4 +112,3 @@ class PokemonOverview extends ConsumerWidget {
     );
   }
 }
-//

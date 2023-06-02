@@ -10,9 +10,9 @@ updateFavorite(bool val, int numeroPokedex) async {
 Future<List<bool>> loadFavorites() async {
   List<bool> favoriteList = [];
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  var valore;
+  bool valore;
   for (int i = 1; i <= pokemonNumberToLoad; i++) {
-    bool valore = sharedPreferences.getBool(i.toString()) ?? false;
+    valore = sharedPreferences.getBool(i.toString()) ?? false;
     favoriteList.add(valore);
   }
   return favoriteList;

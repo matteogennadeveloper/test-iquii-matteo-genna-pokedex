@@ -14,18 +14,18 @@ class AbilityWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             gradient: LinearGradient(colors: pokemon.type.getColors())),
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(pokemon.abilities[index].name,
                 style: Theme.of(context).textTheme.titleMedium),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(pokemon.abilities[index].effect,

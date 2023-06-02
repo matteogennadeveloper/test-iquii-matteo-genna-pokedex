@@ -7,10 +7,10 @@ import 'package:test_iquii/models/pokemon_type.dart';
 import 'package:test_iquii/screens/pokedex_screen.dart';
 import 'package:test_iquii/widgets/detail_button.dart';
 import 'package:test_iquii/widgets/ability_list.dart';
-import 'package:test_iquii/widgets/stats_widget.dart';
 import 'package:test_iquii/widgets/stats_chart.dart';
 
 import '../providers/favorites_provider.dart';
+
 //per la scelta dei dettagli da visualizzare
 enum SelectedDetails {
   stats,
@@ -21,6 +21,7 @@ extension DettagliSelezionatiExtension on SelectedDetails {
   bool vediSelezione(SelectedDetails dettaglioDaConfrontare) {
     return this == dettaglioDaConfrontare;
   }
+
   //per ricavarne l'intestazione
   String getLabel() {
     switch (this) {
@@ -30,6 +31,7 @@ extension DettagliSelezionatiExtension on SelectedDetails {
         return 'Abilities';
     }
   }
+
   //per ricavarne l'interfaccia
   Widget interfacciaDettagli(pokemon) {
     switch (this) {
@@ -44,10 +46,11 @@ extension DettagliSelezionatiExtension on SelectedDetails {
 class PokemonDetailsScreen extends ConsumerStatefulWidget {
   final Pokemon pokemon;
 
-  PokemonDetailsScreen(this.pokemon, {super.key});
+  const PokemonDetailsScreen(this.pokemon, {super.key});
 
   @override
-  ConsumerState<PokemonDetailsScreen> createState() => PokemonDetailsScreenState();
+  ConsumerState<PokemonDetailsScreen> createState() =>
+      PokemonDetailsScreenState();
 }
 
 class PokemonDetailsScreenState extends ConsumerState<PokemonDetailsScreen> {
@@ -58,18 +61,21 @@ class PokemonDetailsScreenState extends ConsumerState<PokemonDetailsScreen> {
   Widget build(BuildContext context) {
     bool favorite = ref.watch(favoritesData)[widget.pokemon.pokedexNumber - 1];
     return Scaffold(
-      appBar: AppBar(actions: [IconButton(
-        icon: Icon(
-          favorite
-              ? Icons.star
-              : Icons.star_border, color: Colors.white,),
-        onPressed: () {
-          ref
-              .read(favoritesData.notifier).updateFavorites(
-              !ref.watch(favoritesData)[widget.pokemon.pokedexNumber - 1],
-              widget.pokemon.pokedexNumber - 1);
-          updateFavorite(!favorite, widget.pokemon.pokedexNumber);
-        },)],
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(
+              favorite ? Icons.star : Icons.star_border,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              ref.read(favoritesData.notifier).updateFavorites(
+                  !ref.watch(favoritesData)[widget.pokemon.pokedexNumber - 1],
+                  widget.pokemon.pokedexNumber - 1);
+              updateFavorite(!favorite, widget.pokemon.pokedexNumber);
+            },
+          )
+        ],
         elevation: 10,
         centerTitle: true,
         title: Hero(
@@ -87,8 +93,8 @@ class PokemonDetailsScreenState extends ConsumerState<PokemonDetailsScreen> {
             height: MediaQuery.of(context).size.height * 0.25,
             width: double.infinity,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: widget.pokemon.type.getColors())),
+                gradient:
+                    LinearGradient(colors: widget.pokemon.type.getColors())),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -115,7 +121,7 @@ class PokemonDetailsScreenState extends ConsumerState<PokemonDetailsScreen> {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white54),
@@ -137,8 +143,8 @@ class PokemonDetailsScreenState extends ConsumerState<PokemonDetailsScreen> {
           Row(
             children: [
               DetailButton(
-                  selected: dettagliSelezionati
-                      .vediSelezione(SelectedDetails.stats),
+                  selected:
+                      dettagliSelezionati.vediSelezione(SelectedDetails.stats),
                   primaryColor: colorePrimario,
                   detail: SelectedDetails.stats,
                   action: () => azioneDettagli(SelectedDetails.stats)),

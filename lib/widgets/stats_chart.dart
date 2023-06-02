@@ -7,7 +7,7 @@ import '../models/pokemon.dart';
 class StatsChart extends StatelessWidget {
   final Pokemon pokemon;
 
-  const StatsChart(this.pokemon);
+  const StatsChart(this.pokemon, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +15,22 @@ class StatsChart extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-            child: Center(child: Text(
-              'Stats',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: pokemon.type.getColors()[1]),
-            ),)),
+            child: Center(
+          child: Text(
+            'Stats',
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: pokemon.type.getColors()[1]),
+          ),
+        )),
         StatsWidget(SelectedStat.hp, pokemon),
         StatsWidget(SelectedStat.attack, pokemon),
         StatsWidget(SelectedStat.defense, pokemon),
         StatsWidget(SelectedStat.specialAttack, pokemon),
         StatsWidget(SelectedStat.specialDefense, pokemon),
         StatsWidget(SelectedStat.speed, pokemon),
-        Spacer(),
+        const Spacer(),
       ],
     );
   }

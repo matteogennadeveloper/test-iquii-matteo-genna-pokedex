@@ -9,7 +9,7 @@ import '../models/pokemon.dart';
 class GridPokemonOverview extends ConsumerWidget {
   final Pokemon pokemon;
 
-  const GridPokemonOverview(this.pokemon);
+  const GridPokemonOverview(this.pokemon, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,53 +26,53 @@ class GridPokemonOverview extends ConsumerWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                gradient: LinearGradient(
-                    colors: pokemon.type.getColors())),
+                gradient: LinearGradient(colors: pokemon.type.getColors())),
             child: Center(
               child: GridTile(
                 header: Wrap(
-                  direction: Axis.vertical, alignment: WrapAlignment.center,
+                  direction: Axis.vertical,
+                  alignment: WrapAlignment.center,
                   children: [
                     IconButton(
                       icon: Icon(
-                            favorite
-                            ? Icons.star
-                            : Icons.star_border, color: Colors.white,),
+                        favorite ? Icons.star : Icons.star_border,
+                        color: Colors.white,
+                      ),
                       onPressed: () {
-                        ref
-                            .read(favoritesData.notifier).updateFavorites(
-                            !ref.watch(favoritesData)[pokemon.pokedexNumber - 1],
+                        ref.read(favoritesData.notifier).updateFavorites(
+                            !ref.watch(
+                                favoritesData)[pokemon.pokedexNumber - 1],
                             pokemon.pokedexNumber - 1);
                         updateFavorite(!favorite, pokemon.pokedexNumber);
-                      },),
-                    Text('#${pokemon.pokedexNumber}', style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium,),
+                      },
+                    ),
+                    Text(
+                      '#${pokemon.pokedexNumber}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ],
                 ),
-
                 child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Stack(
                       alignment: Alignment.center,
                       children: [
                         Hero(
-                          tag: pokemon.pokedexNumber + (pokemonNumberToLoad +
-                              1),
+                          tag:
+                              pokemon.pokedexNumber + (pokemonNumberToLoad + 1),
                           child: Image.asset(
                             'assets/images/pokeball_icon.png',
                             scale: 10,
                             opacity: const AlwaysStoppedAnimation(.5),
                           ),
                         ),
-                        Hero(tag: pokemon.pokedexNumber +
-                            (pokemonNumberToLoad + 1) * 2,
+                        Hero(
+                            tag: pokemon.pokedexNumber +
+                                (pokemonNumberToLoad + 1) * 2,
                             child: pokemon.image),
                       ],
                     ),
@@ -80,34 +80,31 @@ class GridPokemonOverview extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Hero(tag: pokemon.pokedexNumber,
-                          child: FittedBox(fit: BoxFit.contain,
+                        Hero(
+                          tag: pokemon.pokedexNumber,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
                             child: Text(
                               pokemon.name.substring(0, 1).toUpperCase() +
-                                  pokemon.name.substring(
-                                      1, pokemon.name.length),
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .titleMedium,
+                                  pokemon.name
+                                      .substring(1, pokemon.name.length),
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
                         ),
                         Hero(
-                          tag: pokemon.pokedexNumber + (pokemonNumberToLoad +
-                              1) * 3,
+                          tag: pokemon.pokedexNumber +
+                              (pokemonNumberToLoad + 1) * 3,
                           child: Text(
                             pokemon.type.getLabel(),
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .displayMedium,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                         )
                       ],
                     )
                   ],
-                ),),
+                ),
+              ),
             ),
           ),
         ),
@@ -115,4 +112,3 @@ class GridPokemonOverview extends ConsumerWidget {
     );
   }
 }
-//
