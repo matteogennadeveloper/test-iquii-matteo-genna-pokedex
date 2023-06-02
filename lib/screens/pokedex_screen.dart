@@ -56,11 +56,13 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
             .toList()
         : favoritesOnly
             ? loadedPokemon
-                .where((element) =>
-                    ref.watch(favoritesData)[element.pokedexNumber - 1])
+                .where((element)
+    {print(element.pokedexNumber); return
+    ref.watch(favoritesData)[element.pokedexNumber - 1];
+  })
                 .toList()
             : loadedPokemon.sublist(pageRange[0] - 1,
-                pageRange[1] == pokemonNumberToLoad ? null : pageRange[1]);
+                pageRange[1]+1);
   }
 
   String searchText = '';
@@ -103,7 +105,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
 
     Directory appDirectory = await getApplicationDocumentsDirectory();
 
-    for (int i = 1; i <= databaseData.data()!.length; i++) {
+    for (int i = 1; databaseData.data()!.length > pokemonNumberToLoad ? i<=pokemonNumberToLoad : i <= databaseData.data()!.length; i++) {
       //prima verifico l'esistenza del file dell'immagine sulla memoria e in caso negativo la carico da cloud_storage
       File file = File('${appDirectory.path}/.$i.png');
       if (connesso && !(await file.exists())) {
@@ -211,6 +213,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
 
   @override
   build(BuildContext context) {
+    print(pokemonDisplayed.length);
     return Scaffold(
         bottomNavigationBar: search
             ? null
@@ -226,7 +229,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                       index * 50 + 1,
                       (index * 50 + 51) > pokemonNumberToLoad
                           ? pokemonNumberToLoad
-                          : (index * 50 + 51)
+                          : (index * 50 + 50)
                     ];
                     print(pageRange);
                   });
@@ -314,18 +317,14 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2),
                                 padding: const EdgeInsets.all(10),
-                                itemCount: pageRange[1] == pageRange[0]
-                                    ? 1
-                                    : pokemonDisplayed.length,
-                                itemBuilder: (ctx, indice) {
+                                itemCount: pokemonDisplayed.length-1,
+                                itemBuilder: (ctx, index) {
                                   return GridPokemonOverview(
-                                      pokemonDisplayed[indice]);
+                                      pokemonDisplayed[index]);
                                 })
                             : ListView.builder(
                                 padding: const EdgeInsets.all(10),
-                                itemCount: pageRange[1] == pageRange[0]
-                                    ? 1
-                                    : pokemonDisplayed.length,
+                                itemCount: pokemonDisplayed.length-1,
                                 itemBuilder: (ctx, indice) {
                                   return PokemonOverview(
                                       pokemonDisplayed[indice]);
