@@ -213,7 +213,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
 
   @override
   build(BuildContext context) {
-    print(pokemonDisplayed.length);
+
     return Scaffold(
         bottomNavigationBar: search || favoritesOnly
             ? null
@@ -227,7 +227,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
                   setState(() {
                     pageRange = [
                       index * 50 + 1,
-                      (index * 50 + 51) > pokemonNumberToLoad
+                      (index * 50 + 50) > pokemonNumberToLoad
                           ? pokemonNumberToLoad
                           : (index * 50 + 50)
                     ];
