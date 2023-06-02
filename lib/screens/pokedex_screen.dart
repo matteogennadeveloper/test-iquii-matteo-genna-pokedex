@@ -38,7 +38,7 @@ class _PokedexScreenState extends ConsumerState<PokedexScreen> {
   bool loaded = false;
   List<int> pageRange = [
     1,
-    51 > pokemonNumberToLoad ? pokemonNumberToLoad : 51
+    50 > pokemonNumberToLoad ? pokemonNumberToLoad : 51
   ];
   bool search = false;
   //numero che incrementa per ogni pokemon caricato
